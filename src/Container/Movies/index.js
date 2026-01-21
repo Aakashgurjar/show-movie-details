@@ -19,15 +19,13 @@ const  MoviesContainer = () => {
     const [genres, setGenres] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);
 
-    const [pageno, setPageno] = useState(1)
-    const [paginationno, setPaginationno] = useState(0)
+    const [pageno, setPageno] = useState(1);
+    const [paginationno, setPaginationno] = useState(0);
 
-    const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
-
-    
+    const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;    
     const genreforURL = useGenres(selectedGenres)
     
-    const GetDataTrending = async ()=>{
+    const GetDataTrending = async () => {
         
         const {data} = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${pageno}&with_genres=&language=en-US&with_genres=${genreforURL}`)
         setContent(data.results);
@@ -35,24 +33,20 @@ const  MoviesContainer = () => {
     }
 
     useEffect(()=>{
-        console.log('Trending Component did mount');
         GetDataTrending();
-        //eslint-disable-next-line
     }, [])
 
     useEffect(()=>{
         GetDataTrending();
-        //eslint-disable-next-line
+        console.log( "movies is : " , pageno );
     }, [pageno, genreforURL])
 
-    const handleClick = (number)=>{
+    const handleClick = (number)=> {
+        console.log("number is " , number );
         setPageno(number);
     }
-    useEffect(()=>{
-        console.log('Trending Component didupdate mount');
-        GetDataTrending();
-        //eslint-disable-next-line
-    }, [pageno])
+    
+   
 
     
     return (
@@ -68,9 +62,15 @@ const  MoviesContainer = () => {
                 </Row>
                 <Row>
                     <Col className='col-2'>
-                        <LeftListBarComponent genres={genres} selectedGenres={selectedGenres} 
-                        setSelectedGenres={setSelectedGenres}  setGenres={setGenres} type="movie" 
-                        setPage={setPageno}/> 
+                        <LeftListBarComponent
+                         genres={genres} 
+
+                         selectedGenres={selectedGenres} 
+                         setSelectedGenres={setSelectedGenres} 
+                         
+                         setGenres={setGenres} 
+                         type="movie" 
+                         setPage={setPageno}/> 
                     </Col>
                     <Col className='col-10'>
                         <Row>
@@ -78,13 +78,14 @@ const  MoviesContainer = () => {
                                     content && content.length > 0 ? content.map((item, index)=>{
                                         return (<CardMoviesComponents key={index} data={item} mediaType="movie"/>)
                                     }) :
-                                    
                                     <Spinner /> 
-                                    // 'Loading ....'
                                 }
 
                             {
-                                paginationno && paginationno > 1 ? <PaginationComponent maxnum={paginationno} activenum={pageno} handleClick={handleClick}/> : ''
+                                paginationno && paginationno > 1 ? <PaginationComponent
+                                 maxnum={paginationno} 
+                                 activenum={pageno} 
+                                 handleClick={handleClick}/> : ''
                             }
                         </Row>
                     </Col>

@@ -19,7 +19,7 @@ import logo from "../../Assets/images/movix-logo.svg";
 
 
 
-const HeaderComponent = ()=>{
+const HeaderComponent = () => {
 
     const navigate = useNavigate();
 
@@ -27,7 +27,6 @@ const HeaderComponent = ()=>{
 
         {
             name:'Home', link:'/'
-
         },
         {
             name:'Movies', link:'/movies' 
@@ -51,7 +50,6 @@ const HeaderComponent = ()=>{
 
                     <div className='logo' onClick={() => navigate("/")}> 
                     <img src={logo} alt="" />
-                    {/* <Navbar.Brand>My Entertainment</Navbar.Brand> */}
                     </div>
 
                     <div className='title2 '> 
@@ -64,15 +62,7 @@ const HeaderComponent = ()=>{
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >   
-                        {/* {
-                            navData.map((item)=>{
-                                return (
-                                    <Nav key={item.name}>
-                                        <Link to={item.link}>{item.name} </Link>
-                                    </Nav> 
-                                )
-                            })
-                        } */}
+                        
 
 
                         <Link to={'/'} >

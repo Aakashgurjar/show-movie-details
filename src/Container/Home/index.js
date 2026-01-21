@@ -14,28 +14,24 @@ import Spinner from '../../Components/Spinner/Spinner';
 const  HomeContainer = (  ) => {
 
 
-    const [content, setContent] = useState([]);  // create an array 
+    const [content, setContent] = useState([]); 
     const [pageno, setPageno] = useState(1);
-    const [paginationno, setPaginationno] = useState(0);   // set total pages
+    const [paginationno, setPaginationno] = useState(0);   
     // const { type } = useParams();
 
-    const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;   // process.env is a global obj. use by default
-    // console.log( "API key is :" , API_KEY );
+    const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;   
 
 
     const GetDataTrending = async () => {
 
         const  {data}  = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=${pageno}`)
-        console.log( "data.results for home gfhgfgfhg is : " , data.results );
         setContent(data.results);
-        setPaginationno(data.total_pages);  // find total pages 
+        setPaginationno(data.total_pages); 
 
     }
 
     useEffect(()=>{
-       // eslint-disable-next-line
         GetDataTrending();
-        
     }, [])
 
     const handleClick = (number) => {
@@ -44,11 +40,9 @@ const  HomeContainer = (  ) => {
     }
 
     useEffect(()=>{
-
-        // eslint-disable-next-line
         GetDataTrending();
-      
     }, [pageno])    
+
 
 
     return (
@@ -56,7 +50,6 @@ const  HomeContainer = (  ) => {
 
         <div>
             <Alpha currentpage={pageno} />
-            {/* <Alpha /> */}
 
         <main className='homePage'>
 
@@ -70,19 +63,21 @@ const  HomeContainer = (  ) => {
                     </Col>
                     
                     {
-                        content && content.length > 0 ? content.map((item, index)=>{
+                        content && content.length > 0 ? content.map((item, index) => {
                             return (<CardMoviesComponents key={index} data={item} /> ) 
-
                         }) : 
                         <Spinner />
-                        // 'Loading ....'
                     }
 
 
                 {
-                    paginationno && paginationno > 1 ? <PaginationComponent maxnum={paginationno} activenum={pageno} handleClick={handleClick}/> : ''
+                    paginationno && paginationno > 1 ? 
+                    <PaginationComponent 
+                    maxnum={paginationno} 
+                    activenum={pageno} 
+                    handleClick={handleClick}/> : ''
                 }
-                    
+
                 </Row>
             </Container>
             
@@ -90,7 +85,6 @@ const  HomeContainer = (  ) => {
 
          </div>
     )
-
-
 }
 export default HomeContainer;
+

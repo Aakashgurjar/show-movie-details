@@ -13,7 +13,7 @@ import SearchBarCardComponents from '../../Components/SearchBox';
 
 import Spinner from '../../Components/Spinner/Spinner';
 
-const  SearchContainer = ()=>{
+const  SearchContainer = () => {
     
     const [content, setContent] = useState([]);
     const [pageno, setPageno] = useState(1);
@@ -25,35 +25,31 @@ const  SearchContainer = ()=>{
     const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
 
     
-    const GetDataTrending = async ()=>{
+    const GetDataTrending = async () => {
         
     const {data} = await axios.get(`https://api.themoviedb.org/3/search/${typeValue}?api_key=${API_KEY}&page=${pageno}&language=en-US &query=${searchValue}&include_adult=false`); // typevalue -> tv or movie se kisse search kr rhe ho ,, 
-        console.log('data', data.results)
+        // console.log('data', data.results);
         setContent(data.results);
         setPaginationno(data.total_pages);
-
     }
-
-    useEffect(()=>{
-        console.log('Trending Component did mount');
+    useEffect(() => {
         GetDataTrending();
-        //eslint-disable-next-line
     }, [])
 
-    const fetchDataQuery = ()=>{
-        // 
-        GetDataTrending()
+    const fetchDataQuery = ()=> {
+        GetDataTrending();
     }
     
-    const handleClick = (number)=>{
+    const handleClick = (number)=> {
+        console.log("number is " , number );
         setPageno(number);
     }
 
     useEffect(()=>{
-        console.log('Trending Component didupdate mount');
+
         GetDataTrending();
-        //eslint-disable-next-line
-    }, [pageno])
+
+    }, [pageno]);
 
     return (
         <main className='homePage'>
@@ -66,13 +62,19 @@ const  SearchContainer = ()=>{
                             <h1 className='txtCenter'>Search Movies /  TV Series</h1>
                             <h3 className='txtCenter'> For You</h3>
 
-                            <SearchBarCardComponents 
+
+
+                           <SearchBarCardComponents 
                                 searchValue={searchValue}
-                                setSearchValue={(value)=>{setSearchValue(value)}}
+                                setSearchValue={setSearchValue}
+
                                 typeValue={typeValue}
-                                setTypeValue={(value)=>{setTypeValue(value)}}
+                                setTypeValue={setTypeValue}
+                                
                                 filterData={fetchDataQuery} 
-                            />
+                            /> 
+
+
                         </section>
 
                     </Col>
@@ -90,7 +92,11 @@ const  SearchContainer = ()=>{
                                 }
 
                             {
-                                paginationno && paginationno > 1 ? <PaginationComponent maxnum={paginationno} activenum={pageno} handleClick={handleClick}/> : ''
+                                paginationno && paginationno > 1 ?
+                                 <PaginationComponent 
+                                maxnum={paginationno} 
+                                activenum={pageno}
+                                handleClick={handleClick}/> : ''
                             }
                         </Row>
                     </Col>

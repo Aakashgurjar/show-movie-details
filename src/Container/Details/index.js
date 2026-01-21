@@ -20,7 +20,6 @@ const DetailsContainer = () => {
     const [video, setVideo] = useState();
     const [credits, setCredits] = useState();
 
-    // console.log('params', params);  //it gives -- mediatype = movie, tv || movieid
 
 
     const titleName =  content && content.name && content.name !== '' ? content.name : content && content.title && content.title !== '' ?  content.title : '';
@@ -29,24 +28,23 @@ const DetailsContainer = () => {
     const _media_type = params && params.mediatype &&  params.mediatype !== '' ? params.mediatype.toLowerCase() : '';
     const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
 
+    console.log( "id : " , id  );
 
-    const fetchData = async () =>{
+    const fetchData = async () => {
         try{
           const {data} = await axios.get(`https://api.themoviedb.org/3/${_media_type}/${id}?api_key=${API_KEY}&language=en-US`);
           setContent(data);
-          console.log('fetchData details',  data);
+        //   console.log('fetchData details',  data);
         }
         catch(error){
           console.error( "error fetchdata is :" , error);
         }
     }
 
-
-    const fetchVideo = async () =>{  
+    const fetchVideo = async () => {  
         try{
           const {data} = await axios.get(`https://api.themoviedb.org/3/${_media_type}/${id}/videos?api_key=${API_KEY}&language=en-US`);
           setVideo(data.results[0]?.key);
-          console.log('fetchVideo',  data);
         }
         catch(error){
           console.error( "error fetchvideo is :" , error);
@@ -68,13 +66,11 @@ const DetailsContainer = () => {
         fetchData();
         fetchVideo();
         creditsFetch();
-        //eslint-disable-next-line
     }, [])
 
 
 
     const renderDataHtml = ()=>{
-        // const ImageURL = content.poster_path ? img_300 + content.poster_path : img_not_available;
         const ImageURL = content.poster_path ? img_300 + content.poster_path : ( logo );
 
 
@@ -86,7 +82,7 @@ const DetailsContainer = () => {
         const adult = !content.adult ? '10+' : '18+';
         const origin_country = content.origin_country && content.origin_country[0] ? content.origin_country[0] : content.production_countries && content.production_countries[0] && content.production_countries[0].name ? content.production_countries[0].name : '';
 
-        const overview = content.overview;  // details / description 
+        const overview = content.overview;  
         const first_air_date = content.first_air_date || content.release_date;
         const  budget = content.budget || '';
         const genres = content.genres && content.genres.length > 0 ? content.genres.map((item)=> <span  key={item.id}>{item.name}</span>) : '' ;
@@ -108,7 +104,6 @@ const DetailsContainer = () => {
                     <div className='card card--details '>
 
                         <div className='card__cover '>
-                            {/* <div className='border-4 border-red-400'> */}
                             <img src={ImageURL} alt="myimage" />
                         </div>
 
@@ -151,14 +146,7 @@ const DetailsContainer = () => {
                 <Col className='col-12 col-xl-6'>
                     <div className='frameSec'>
 
-                        {/* <a rel="noreferrer" target="_blank" href={`https://www.youtube.com/watch?v=${video}`}>
-                            <figure className="youtubeImage">
-                                <span className='imageSec'>
-                                    <img src={videoBgPoster} alt="" title="" />
-                                </span>
-                                <span className='iconYoutube'></span>
-                            </figure>
-                        </a> */}
+                  
 
                         <iframe width="560" height="315" src={`https://www.youtube.com/embed/${video}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
@@ -172,7 +160,6 @@ const DetailsContainer = () => {
             <Container>
                 {
                     titleName && titleName !==  '' ? renderDataHtml() : 
-                    // <Spinner />
                     'Loading...'
                 }
                 
@@ -190,7 +177,6 @@ const DetailsContainer = () => {
                                     credits && credits.length > 0 ? <DarkVariantExample data={credits} /> : 
 
                                     <Spinner className = ' border-4 border-red-500' />
-                                     // 'Lading data...' 
                                     
                                     
                                    

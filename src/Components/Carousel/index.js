@@ -1,6 +1,5 @@
 import AliceCarousel from 'react-alice-carousel';
 
-// use react-alice-carousel to show co-star details in every 3seconds   
 
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './style.css';
@@ -38,15 +37,14 @@ function DarkVariantExample({data}) {
     }
   }
 
+
   const items = data.map((item)=>{
 
     return(
 
-        //   CO-STAR CAROUSEL 
 
         <div className="carouselItem">
 
-            {/* <img onDragStart={handleDragStart}  src={item.profile_path ? `${img_300}/${item.profile_path}`: (no_picture )}  */}
              <img onDragStart={handleDragStart}  src={item.profile_path ? `${img_300}/${item.profile_path}`: (avatar )}  
              alt={item.name} title={item.name}
               />
@@ -64,19 +62,29 @@ function DarkVariantExample({data}) {
       <div className='myCarWrap'>
 
 
-        <h2>Co-Star Informations</h2>
+        <h2 className='text-15px'>  Co-Star Informations </h2>
         <AliceCarousel 
+
         responsive={responsive}
         autoPlay={true}
         autoPlayInterval={3000}
         infinite={true}
+        
         disableButtonsControls
         disableDotsControls
         mouseTracking 
-        items={items} />
+        items={items}
+         />
 
       </div>
     );
   }
   
   export default DarkVariantExample;
+
+
+
+
+
+
+  

@@ -5,39 +5,23 @@ import { Link } from 'react-router-dom';
 
 import { FaStar } from "react-icons/fa";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 
 import { img_300 , img_not_available } from '../../Config';
 import logo from '../../Assets/images/no-poster.png'
 
-// import CardMoviesComponents from '../CardMovies';
-// import Home from '../../Container/Home/index'
+
 
 
 const Alpha = ( props  )  => {
 
     let showcurrentpage = props;
-    // console.log( "currentpage is " , showcurrentpage.currentpage );
     
   
-  const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;   // process.env is a global obj. use by default
+  const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;   
   // console.log( "API key is :" , API_KEY );
 
-  //  console.log(" Alpha data is cardmovies : " , data );
-  //  const title = data.original_title || data.name;
-  //  const id = data.id;
-
-  //  // poster path 
-  //  // const ImageURL =  data.poster_path ? ( img_300 + data.poster_path ) : ( img_not_available );
-  //  const ImageURL =  data.poster_path ? ( img_300 + data.poster_path ) : ( logo );
-
-  //  //  media type like ,  tv or movie
-  //  const media_type = data.media_type ? data.media_type : data.type ? data.type : mediaType;
-  //  const release_date =  data.release_date || data.first_air_date;
-  //  const vote_average = parseInt(data.vote_average);  // 4.6 to convert parseint --> return 4 
-  //  const original_language = data.original_language || ''
-   
 
   const [ popularMovies , setpopularMovies ] = useState([]);
 
@@ -45,7 +29,6 @@ const Alpha = ( props  )  => {
 
 
     try{
-      // fetch( `https://api.themoviedb.org/3/trending/all/day?api_key=107fb389d59c5eee24fddefc6f417334&language=en-US` )
          fetch( `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=${showcurrentpage.currentpage}` )
         .then( res => res.json() )
         .then( data => setpopularMovies( data.results ))
@@ -55,7 +38,6 @@ const Alpha = ( props  )  => {
          console.error("generated error")
      }
 
-  // }, [] )  // default is 
   },[ showcurrentpage.currentpage ] )
 
 
@@ -64,15 +46,14 @@ const Alpha = ( props  )  => {
     <div className='A-container ' >
 
           <Carousel 
-
             showThumbs={false}
             autoPlay={true}
             transitionTime={1}
             infiniteLoop={true}
             showStatus={false}
+            
+
             >      
-
-
             
                 {
                 popularMovies.map( movie =>   (
@@ -106,12 +87,9 @@ const Alpha = ( props  )  => {
                       </div>
                      
                   
-                     </Link>
-                
-
+                     </Link>               
                 ))
               }
-
         </Carousel>
 
     </div>

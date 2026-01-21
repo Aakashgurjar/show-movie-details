@@ -5,16 +5,18 @@ import './style.css';
 
 const SearchBarCardComponents = ({searchValue, setSearchValue, typeValue, setTypeValue, filterData})=>{
     
-    const changeSearchHandle = (e)=>{
-        setSearchValue(e.target.value)
+    const changeSearchHandle = (e) => {
+        setSearchValue(e.target.value);
     }
-    const chagneValueHandler = (e)=>{
-        console.log(e.target.value)
-        setTypeValue(e.target.value)
+
+    const chagneValueHandler = (e) => {
+        console.log(e.target.value);
+        setTypeValue(e.target.value);
     }
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
+       
         e.preventDefault();
-        filterData()
+        filterData();
     }
 
     return (
@@ -30,6 +32,7 @@ const SearchBarCardComponents = ({searchValue, setSearchValue, typeValue, setTyp
                             <input type="radio" value="tv" onChange={chagneValueHandler} checked={typeValue === 'tv' ? true : false} name="findSeriesType" id="tvFind" />
                             <span>Tv </span>
                         </label>
+                        
                         <label htmlFor="seriesFind" className='label_2'>
                             <input type="radio" value="movie" onChange={chagneValueHandler} checked={typeValue === 'movie' ? true : false} name="findSeriesType" id="seriesFind" />
                             <span>Movies </span>
@@ -40,12 +43,13 @@ const SearchBarCardComponents = ({searchValue, setSearchValue, typeValue, setTyp
 
                     <form   onSubmit={handleSubmit} >
                         
-                        <input type="search"
+                        <input 
+                        type="search"
                         value={searchValue} 
                         onChange={changeSearchHandle} 
                         placeholder="Search for a movie or tv show...." />
 
-                        <input type="submit"  value="Search" />
+                        <button onClick= {handleSubmit} className='border-2 bg-pink-400 rounded-2xl p-2 m-2'> search </button>
 
                     </form>
 
@@ -62,44 +66,3 @@ export default SearchBarCardComponents;
 
 
 
-
-
-// .searchInput {
-//     display: flex;
-//     align-items: center;
-//     width: 100%;
-//     input {
-//         width: calc(100% - 100px);
-//         height: 50px;
-//         background-color: white;
-//         outline: 0;
-//         border: 0;
-//         border-radius: 30px 0 0 30px;
-//         padding: 0 15px;
-//         font-size: 14px;
-//         @include md {
-//             width: calc(100% - 150px);
-//             height: 60px;
-//             font-size: 20px;
-//             padding: 0 30px;
-//         }
-//     }
-
-
-
-//     button {
-//         width: 100px;
-//         height: 50px;
-//         background: var(--gradient);
-//         color: white;
-//         outline: 0;
-//         border: 0;
-//         border-radius: 0 30px 30px 0;
-//         font-size: 16px;
-//         cursor: pointer;
-//         @include md {
-//             width: 150px;
-//             height: 60px;
-//             font-size: 18px;
-//         }
-//     }

@@ -1,4 +1,3 @@
-// image size for tmdb
 
 export const img_300 = 'https://image.tmdb.org/t/p/w300';  //width 300 sayad thatwhy photo is small 
 
